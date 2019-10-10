@@ -17,6 +17,16 @@ class Grid(object):
             line_list.append(line)
         return line_list
 
+    def fill_square(self, row_num, column_num):
+        self._insert_value_to_grid(row_num, column_num, Line.filled)
+
+    def empty_square(self, row_num, column_num):
+        self._insert_value_to_grid(row_num, column_num, Line.empty)
+
+    def _insert_value_to_grid(self, row_num, column_num, value):
+        self.rows[row_num].update_string(column_num, value)
+        self.columns[column_num].update_string(row_num, value)
+
     def all_lines(self):
         all_lines = self.rows + self.columns
         return all_lines

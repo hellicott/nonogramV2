@@ -11,6 +11,9 @@ class Line(object):
     def is_solved(self):
         return self.as_hints() == self.hints
 
+    def update_string(self, position, value):
+        self.line_string[position] = value
+
     def as_hints(self):
         hints = []
         num = 0
