@@ -1,22 +1,42 @@
 from grid import Grid
+from nonogram_reader import NonogramReader
 
 
-class Solver(object):
+class NonogramSolver(object):
 
     def __init__(self, grid: Grid):
         self.grid = grid
 
-    def fill_definite_squares(self):
-        for i in range(len(self.grid.rows)):
-            definite_positions = self.grid.rows[i].find_definite_squares()
-            for position in definite_positions:
-                self.grid.fill_square(i, position)
-        for i in range(len(self.grid.columns)):
-            definite_positions = self.grid.columns[i].find_definite_squares()
-            for position in definite_positions:
-                self.grid.fill_square(position, i)
-
     def solve(self):
-        self.fill_definite_squares()
-        while not self.grid.is_solved():
-            break
+        num_iterations = 0
+        while not self.grid.is_solved() and num_iterations < 1000000:
+            num_iterations += 1
+            self.grid.setup_grid()
+            self.grid.attempt_to_solve()
+            self.print_info(num_iterations)
+        if self.grid.is_solved():
+            self.grid.fill_completed_lines()
+            self.print_info(num_iterations)
+        else:
+            print("*" * 30)
+            print("*** COULD NOT BE SOLVED :( ***")
+            print("*" * 30)
+
+    def print_info(self, num):
+        print("Iteration num: {}".format(num))
+        print(self.grid)
+        print("SOLVED? {}".format(self.grid.is_solved()))
+        print("-" * 40)
+
+
+def main():
+    path = r"C:\Users\HEllicott\Documents\FlamingGoats\Challenges\nonogramV2\nonogram_inputs\s.json"
+    reader = NonogramReader(path)
+    row_hints, column_hints = reader.get_row_and_column_hints()
+    grid = Grid(row_hints, column_hints)
+    print(grid)
+    solver = NonogramSolver(grid)
+    solver.solve()
+
+
+main()
