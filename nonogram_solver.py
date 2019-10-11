@@ -30,7 +30,7 @@ class NonogramSolver(object):
 
 
 def main():
-    path = r"C:\Users\HEllicott\Documents\FlamingGoats\Challenges\nonogramV2\nonogram_inputs\s.json"
+    path = r"C:\Users\HEllicott\Documents\FlamingGoats\Challenges\nonogramV2\nonogram_inputs\tv.json"
     reader = NonogramReader(path)
     row_hints, column_hints = reader.get_row_and_column_hints()
     grid = Grid(row_hints, column_hints)
