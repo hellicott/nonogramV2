@@ -14,6 +14,9 @@ class Line(object):
     def update_string(self, position, value):
         self.line_string[position] = value
 
+    def find_definite_squares(self):
+
+
     def as_hints(self):
         hints = []
         num = 0
